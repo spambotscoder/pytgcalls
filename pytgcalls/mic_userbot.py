@@ -22,7 +22,7 @@ async def joinvc(_, msg):
         msg.chat.id,
         AudioPiped(
             "mic",
-            ffmpeg_parameters="-af volume=1.8"
+            ffmpeg_parameters="-af volume=2.0"
         )
     )
     await msg.reply("🎤 Mic VC joined (Boost ON)")
