@@ -1,20 +1,17 @@
-FROM python:3.10
-
-ENV DEBIAN_FRONTEND=noninteractive
-
-RUN apt-get update && apt-get install -y \
-    ffmpeg \
-    git \
-    gcc \
-    libffi-dev \
-    build-essential \
-    && rm -rf /var/lib/apt/lists/*
+FROM python:3.11-slim
 
 WORKDIR /app
 
-COPY . /app
+RUN apt update && apt install -y \
+    ffmpeg \
+    git \
+    build-essential \
+    libopus0 \
+    libopus-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+COPY . .
+
+RUN pip install --no-cache-dir -r requirements.txt
 
 CMD ["python3", "mic_userbot.py"]
