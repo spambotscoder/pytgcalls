@@ -1,24 +1,20 @@
-FROM python:3.10-slim
+FROM python:3.10
 
-# System deps
+ENV DEBIAN_FRONTEND=noninteractive
+
 RUN apt-get update && apt-get install -y \
     ffmpeg \
     git \
     gcc \
     libffi-dev \
-    && apt-get clean
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
 
-# Workdir
 WORKDIR /app
 
-# Copy files
 COPY . /app
 
-# Upgrade pip
 RUN pip install --upgrade pip
-
-# Install python deps
 RUN pip install -r requirements.txt
 
-# Start userbot
 CMD ["python3", "mic_userbot.py"]
